@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupComponent } from './signup/signup.component';
+import { UserService } from './service/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -17,7 +19,7 @@ import { SignupComponent } from './signup/signup.component';
     AppComponent,
     LoginComponent,
     UserComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,9 +27,10 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
