@@ -47,7 +47,7 @@
   <img id="img" src="/assets/{{selectedApp.Photo}}.jpg">
 
   <div align="end" id="close" >
-      <button mat-button (click)="dialogRef.close()">CLOSE</button>
+      <button mat-button (click)="selectedApp = false">CLOSE</button>
       <button mat-button  matDialogClose (click)="SaveApplication()" > SAVE</button>
     </div>
 </div>
