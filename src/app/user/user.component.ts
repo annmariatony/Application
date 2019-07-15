@@ -51,15 +51,24 @@ export class UserComponent implements OnInit {
       });
   }
   deleteApp(app: Application) {
-    this.userservice.deleteApp(app.ID.toString())
+    console.log(app.ID);
+    this.userservice.deleteApp(app)
       .subscribe(data => {
         this.userApp();
       });
   }
   approve(app: Application) {
-    this.userservice.makeApprove(app.ID.toString())
+    console.log(app.ID);
+
+    this.userservice.makeApprove(app)
       .subscribe(data => {
         this.userApp();
       });
+  }
+  SaveApplication() {
+    this.selectedApp.UserID = this.userid;
+    this.userservice.SaveApplication(this.selectedApp)
+    .subscribe(userdata => {
+    });
   }
 }

@@ -17,3 +17,7 @@
     border-bottom: 1px solid #bdbdbd;
 }
 #img{width:80%;}
+tr:hover {
+    background-color: #eee;
+    cursor: pointer;
+}

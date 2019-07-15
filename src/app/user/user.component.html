@@ -6,6 +6,7 @@
 <div *ngIf="!selectedApp">
   <table>
     <tr color="accent">
+      <td>Name</td>
       <td>Title</td>
       <td>Photo</td>
       <td></td>
@@ -14,6 +15,7 @@
 
     </tr>
     <tr *ngFor="let app of app" class="tableRows" (click)="selectedApp = app">
+        <td>{{app.Name}}</td>
       <td>{{app.Title}}</td>
       <td>
         <a target='_blank' href='/assets/{{app.Photo}}.jpg' (click)="$event.stopPropagation()" id="click">{{app.Title}}</a>
@@ -21,10 +23,10 @@
       <td *ngIf="app.Approval === 1">Approved</td>
       <td *ngIf="app.Approval === 0"> NotApproved</td>
       <td *ngIf="userid === '2'">
-        <mat-icon (click)="approve()">checkmark</mat-icon>
+        <mat-icon (click)="$event.stopPropagation();approve(app)" titlt="make Approve">checkmark</mat-icon>
       </td>
       <td *ngIf="userid !== '2'">
-        <mat-icon (click)="deleteApp()">delete</mat-icon>
+        <mat-icon (click)="$event.stopPropagation();deleteApp(app)" titlt="delete">delete</mat-icon>
       </td>
 
 
@@ -32,7 +34,9 @@
   </table>
 </div>
 <div *ngIf="selectedApp">
-
+    <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="selectedApp.Name">
+      </mat-form-field><br>
 
   <mat-form-field>
     <input matInput placeholder="Title" [(ngModel)]="selectedApp.Title">
@@ -41,4 +45,9 @@
     <input matInput placeholder="Description" [(ngModel)]="selectedApp.Description">
   </mat-form-field><br>
   <img id="img" src="/assets/{{selectedApp.Photo}}.jpg">
+
+  <div align="end" id="close" >
+      <button mat-button (click)="dialogRef.close()">CLOSE</button>
+      <button mat-button  matDialogClose (click)="SaveApplication()" > SAVE</button>
+    </div>
 </div>

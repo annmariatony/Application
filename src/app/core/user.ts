@@ -17,6 +17,7 @@ export class Application {
   AppDate: Date;
   Approval: Number;
   Photo: string;
+  Name: string;
   constructor() {
   }
 }
