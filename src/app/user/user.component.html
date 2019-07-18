@@ -1,4 +1,4 @@
-<h3 color="primary">Logged in as{{user.FirstName}}</h3>
+<h3 color="primary">Logged in as{{ currentUser}}</h3>
 <h4>Posts</h4>
 <button mat-fab color="accent" id="addButton" (click)="openNew()">
   <mat-icon>add</mat-icon>
@@ -22,10 +22,10 @@
       </td>
       <td *ngIf="app.Approval === 1">Approved</td>
       <td *ngIf="app.Approval === 0"> NotApproved</td>
-      <td *ngIf="userid === '2'">
+      <td *ngIf="currentUser === 'Admin'">
         <mat-icon (click)="$event.stopPropagation();approve(app)" titlt="make Approve">checkmark</mat-icon>
       </td>
-      <td *ngIf="userid !== '2'">
+      <td *ngIf="currentUser !== 'Admin'">
         <mat-icon (click)="$event.stopPropagation();deleteApp(app)" titlt="delete">delete</mat-icon>
       </td>
 
@@ -44,6 +44,8 @@
   <mat-form-field>
     <input matInput placeholder="Description" [(ngModel)]="selectedApp.Description">
   </mat-form-field><br>
+  <input type="file" (change)="upload($event.target.files)" />
+
   <img id="img" src="/assets/{{selectedApp.Photo}}.jpg">
 
   <div align="end" id="close" >

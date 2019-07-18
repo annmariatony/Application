@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupComponent } from './signup/signup.component';
 import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SessionService } from './service/session.service';
+import { SessionStorageService } from 'angular-web-storage';
+import { AuthGuard } from './auth.guard';
 
 
 
@@ -30,7 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [UserService],
+  providers: [UserService, SessionService, SessionStorageService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

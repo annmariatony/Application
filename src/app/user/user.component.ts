@@ -3,6 +3,7 @@ import { User, Application } from '../core/user';
 import { UserService } from '../service/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-user',
@@ -17,48 +18,49 @@ export class UserComponent implements OnInit {
   app: Application[] = [];
   fileToUpload: File = null;
   all: string;
+  currentUser: string;
+
   constructor(private userservice: UserService,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private session: SessionService
 
-  ) { }
+
+  ) { this.currentUser = this.session.getSessionObj('user')['FirstName']; }
 
   ngOnInit() {
-    this.userid = this.route.snapshot.paramMap.get('id');
-    if (this.userid === '2') {
+   // this.userid = this.route.snapshot.paramMap.get('id');
+    if (this.currentUser === 'Admin') {
       this.all = 'true';
     } else {
       this.all = 'false';
 
     }
-    this.userservice.getUser(this.userid)
+    this.userservice.getUser(this.currentUser)
       .subscribe(userdata => {
         if (userdata['Users'].length) {
           this.user = userdata['Users'][0];
         }
         this.userApp();
-        console.log(this.user);
       });
   }
   openNew() {
     this.selectedApp = new Application();
+    this.selectedApp.Name = this.currentUser;
   }
   userApp() {
-    this.userservice.userApp(this.userid, this.all)
+    this.userservice.userApp(this.currentUser, this.all)
       .subscribe(userdata => {
         this.app = userdata['Application'];
-        console.log(this.app);
       });
   }
   deleteApp(app: Application) {
-    console.log(app.ID);
     this.userservice.deleteApp(app)
       .subscribe(data => {
         this.userApp();
       });
   }
   approve(app: Application) {
-    console.log(app.ID);
 
     this.userservice.makeApprove(app)
       .subscribe(data => {
@@ -66,7 +68,7 @@ export class UserComponent implements OnInit {
       });
   }
   SaveApplication() {
-    this.selectedApp.UserID = this.userid;
+    this.selectedApp.UserID = this.user[0].ID;
     this.userservice.SaveApplication(this.selectedApp)
     .subscribe(userdata => {
     });
